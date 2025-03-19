@@ -36,4 +36,16 @@ const addYouTubeSolution = async (req, res) => {
   }
 };
 
-module.exports = { bookmarkContest, addYouTubeSolution };
+const createContest = async (req, res) => {
+    try {
+        const { name, url, platform, startTime, duration } = req.body;
+        const contest = new Contest({ name, url, platform, startTime, duration });
+        await contest.save();
+        res.status(201).json({ message: "Contest created successfully", contest });
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
+
+module.exports = { bookmarkContest, addYouTubeSolution, createContest };

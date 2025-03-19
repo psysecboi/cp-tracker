@@ -1,8 +1,19 @@
 const express = require('express');
-const { bookmarkContest, addYouTubeSolution } = require('../controllers/contestController');
+const { 
+    bookmarkContest, 
+    addYouTubeSolution, 
+    createContest 
+} = require('../controllers/contestController');
+
 const router = express.Router();
 
-router.post('/:id/bookmark', bookmarkContest);  // API to bookmark contests
-router.post('/:id/add-solution', addYouTubeSolution);  // API to add YouTube solutions
+// Route to create a new contest
+router.post('/', createContest);
+
+// Route to bookmark a contest
+router.post('/:id/bookmark', bookmarkContest);
+
+// Route to add a YouTube solution link
+router.post('/:id/yt-solution', addYouTubeSolution);
 
 module.exports = router;
