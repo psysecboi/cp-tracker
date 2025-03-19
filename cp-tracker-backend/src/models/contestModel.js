@@ -5,10 +5,13 @@ const contestSchema = new mongoose.Schema({
   platform: { type: String, required: true },
   url: { type: String, required: true },
   startTime: { type: Date, required: true },
-  endTime: { type: Date, required: true },
-  bookmarkedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // Array of users who bookmarked
+  duration: { type: Number, required: true }, // Duration in minutes
+  endTime: { 
+    type: Date, 
+    default: function() { return new Date(this.startTime.getTime() + this.duration * 60000); } 
+  },
+  bookmarkedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // Array of user IDs
   ytSolutions: [{ type: String }], // Array of YouTube video links
-  duration: { type: Number } // Duration in minutes
 }, { timestamps: true });
 
 const Contest = mongoose.model('Contest', contestSchema);
