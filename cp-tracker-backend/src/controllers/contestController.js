@@ -1,5 +1,6 @@
 const Contest = require("../models/contestModel");
 const mongoose = require("mongoose");
+const { fetchAllContests } = require("../services/contestService");
 
 // Bookmark a contest
 const bookmarkContest = async (req, res) => {
@@ -54,7 +55,7 @@ const getAllContests = async (req, res) => {
   }
 };
 
-module.exports = { bookmarkContest, addYouTubeSolution, getAllContests };
+// module.exports = { bookmarkContest, addYouTubeSolution, getAllContests };
 
 
 const createContest = async (req, res) => {
@@ -68,5 +69,15 @@ const createContest = async (req, res) => {
     }
 };
 
+const syncContests = async (req, res) => {
+  try {
+      const contests = await fetchAllContests();
+      res.status(200).json(contests);
+  } catch (error) {
+      res.status(500).json({ message: "Failed to fetch contests" });
+  }
+};
 
-module.exports = { bookmarkContest, addYouTubeSolution, createContest, getAllContests };
+
+
+module.exports = { bookmarkContest, addYouTubeSolution, createContest, getAllContests, syncContests };

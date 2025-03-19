@@ -2,7 +2,9 @@ const express = require("express");
 const { 
     bookmarkContest, 
     addYouTubeSolution, 
-    getAllContests 
+    getAllContests,
+    createContest, 
+    syncContests 
 } = require("../controllers/contestController");
 
 const router = express.Router();
@@ -18,5 +20,9 @@ router.post("/:id/yt-solution", addYouTubeSolution);
 
 // Route to get all contests
 router.get("/", getAllContests);
+
+// Route to sync contests from external sources (e.g., Codeforces)
+router.get("/sync", syncContests);
+
 
 module.exports = router;
